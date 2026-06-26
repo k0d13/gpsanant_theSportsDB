@@ -501,6 +501,105 @@ export interface Love {
     strChannelFanart: string | null;
 }
 
+export interface Venue {
+    idVenue: number;
+    strVenue: string;
+    strVenueAlternate: string | null;
+    strVenueShort: string | null;
+    strVenueSponsor: string | null;
+    strSport: string | null;
+    strCost: string | null;
+    strCountry: string | null;
+    strLocation: string | null;
+    strTimezone: string | null;
+    intCapacity: number | null;
+    intFormedYear: number | null;
+    strWebsite: string | null;
+    strFacebook: string | null;
+    strTwitter: string | null;
+    strInstagram: string | null;
+    strYoutube: string | null;
+    strDescriptionEN: string | null;
+    strThumb: string | null;
+    strLogo: string | null;
+    strFanart1: string | null;
+    strFanart2: string | null;
+    strFanart3: string | null;
+    strFanart4: string | null;
+    strBanner: string | null;
+    strMap: string | null;
+    strLocked: string | null;
+}
+
+export interface Equipment {
+    idTeam: number;
+    strTeam: string;
+    strSeason: string;
+    strKit: string;
+    strKitColour1: string | null;
+    strKitColour2: string | null;
+    strKitColour3: string | null;
+    strKitType: string | null;
+    strOutfitter: string | null;
+    strEquipmentThumb: string | null;
+}
+
+export interface Milestone {
+    idMilestone: number;
+    idPlayer: number;
+    idTeam: number | null;
+    idLeague: number | null;
+    strPlayer: string;
+    strMilestone: string;
+    strSeason: string | null;
+    strData: string | null;
+    dateMilestone: string | null;
+}
+
+export interface PlayerStats {
+    idPlayerStats: number;
+    idEvent: number;
+    idPlayer: number;
+    idTeam: number;
+    strPlayer: string;
+    strTeam: string;
+    strEvent: string;
+    strSeason: string;
+    intPosition: number | null;
+    strPosition: string | null;
+    intMinutesPlayed: number | null;
+    intGoals: number | null;
+    intAssists: number | null;
+    intYellowCards: number | null;
+    intRedCards: number | null;
+    intRating: number | null;
+}
+
+export interface Timeline {
+    idTimeline: number;
+    idEvent: number;
+    strTimeline: string;
+    strTimelineDetail: string | null;
+    strHome: string;
+    strPlayer: string | null;
+    strPlayer2: string | null;
+    idPlayer: number | null;
+    idPlayer2: number | null;
+    strTeam: string | null;
+    idTeam: number | null;
+    intTime: number | null;
+    sortOrder: number | null;
+}
+
+export interface EventStats {
+    idStatistic: number;
+    idEvent: number;
+    strEvent: string;
+    strStat: string;
+    intHome: number | null;
+    intAway: number | null;
+}
+
 export interface SportsDBOptions {
     apiKey?: string | number;
     fetch?: typeof globalThis.fetch;
@@ -509,12 +608,17 @@ export interface SportsDBOptions {
 export declare class SportsDbApi {
     constructor(options?: SportsDBOptions);
 
+    // Venues
+    searchVenues(name: string): Promise<{ venues: Venue[] | null }>;
+    getVenueById(id: string | number): Promise<{ venues: Venue[] | null }>;
+
     // Teams
     getTeamByName(name: string): Promise<{ teams: Team[] | null }>;
     getTeamByShortCode(code: string): Promise<{ teams: Team[] | null }>;
     getTeamDetailsById(id: string | number): Promise<{ teams: Team[] | null }>;
     getTeamsByLeagueName(name: string): Promise<{ teams: Team[] | null }>;
     getTeamsByCountryAndSport(sport: string, country: string): Promise<{ teams: Team[] | null }>;
+    getTeamEquipmentById(id: string | number): Promise<{ equipment: Equipment[] | null }>;
 
     // Players
     getAllPlayersByTeam(name: string): Promise<{ player: Player[] | null }>;
@@ -524,11 +628,17 @@ export declare class SportsDbApi {
     getPlayerHonoursById(id: string | number): Promise<{ honours: Honour[] | null }>;
     getPlayerFormerTeamsById(id: string | number): Promise<{ formerteams: FormerTeam[] | null }>;
     getPlayerContractsById(id: string | number): Promise<{ contracts: Contract[] | null }>;
+    getPlayerMilestonesById(id: string | number): Promise<{ milestones: Milestone[] | null }>;
+    getPlayerStatsByEventId(id: string | number): Promise<{ playerstats: PlayerStats[] | null }>;
+    getPlayerResultsById(id: string | number): Promise<{ results: EventResult[] | null }>;
 
     // Events
     getEventByName(name: string, season?: string): Promise<{ event: Event[] | null }>;
     getEventDetailsById(id: string | number): Promise<{ events: Event[] | null }>;
     getEventResultsById(id: string | number): Promise<{ results: EventResult[] | null }>;
+    getEventLineupById(id: string | number): Promise<{ lineup: Lineup[] | null }>;
+    getEventTimelineById(id: string | number): Promise<{ timeline: Timeline[] | null }>;
+    getEventStatsById(id: string | number): Promise<{ eventstats: EventStats[] | null }>;
     getEventsInRound(id: string | number, round: string | number, season: string): Promise<{ events: Event[] | null }>;
     getEventsOnDay(day: string, sport?: string, league?: string): Promise<{ events: Event[] | null }>;
     getEventsByLeagueIdAndSeason(id: string | number, season: string): Promise<{ events: Event[] | null }>;
@@ -537,6 +647,7 @@ export declare class SportsDbApi {
     getPast5EventsByTeamId(id: string | number): Promise<{ results: Event[] | null }>;
     getPast15EventsByLeagueId(id: string | number): Promise<{ results: Event[] | null }>;
     getNext15EventsByLeagueId(id: string | number): Promise<{ events: Event[] | null }>;
+    getEventByFilename(filename: string, season?: string): Promise<{ event: Event[] | null }>;
 
     // Leagues & Seasons
     getSportsList(): Promise<{ sports: Sport[] | null }>;

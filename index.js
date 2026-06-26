@@ -174,6 +174,50 @@ class SportsDbApi {
         return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/eventsseason.php?id=${id}&s=${season}`).then(r => r.json());
     }
 
+    async searchVenues(name) {
+        name = makeUrl(name);
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/searchvenues.php?v=${name}`).then(r => r.json());
+    }
+
+    async getVenueById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookupvenue.php?id=${id}`).then(r => r.json());
+    }
+
+    async getTeamEquipmentById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookupequipment.php?id=${id}`).then(r => r.json());
+    }
+
+    async getPlayerMilestonesById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookupmilestones.php?id=${id}`).then(r => r.json());
+    }
+
+    async getPlayerStatsByEventId(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookupplayerstats.php?id=${id}`).then(r => r.json());
+    }
+
+    async getPlayerResultsById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/playerresults.php?id=${id}`).then(r => r.json());
+    }
+
+    async getEventLineupById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookuplineup.php?id=${id}`).then(r => r.json());
+    }
+
+    async getEventTimelineById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookuptimeline.php?id=${id}`).then(r => r.json());
+    }
+
+    async getEventStatsById(id) {
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/lookupeventstats.php?id=${id}`).then(r => r.json());
+    }
+
+    async getEventByFilename(filename, season) {
+        filename = makeUrl(filename);
+        var params = [`e=${filename}`];
+        if (season) params.push(`s=${makeUrl(season)}`);
+        return this.#fetch(`https://www.thesportsdb.com/api/v1/json/${this.#apiKey}/searchfilename.php?${params.join('&')}`).then(r => r.json());
+    }
+
     async getImage(id) {
         return this.#fetch(`https://www.thesportsdb.com/images/media/league/fanart/${id}.jpg`).then(r => r.json());
     }
