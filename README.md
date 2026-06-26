@@ -1,23 +1,24 @@
 # theSportsDB
-Library for The Sports DB API <br>
-For questions, email me at gpsanant@gmail.com
+Library for The Sports DB API
 
-# Installation
-```js script
-npm install thesportsdb
+## Installation
+```sh
+npm install @apteryxxyz/thesportsdb
 ```
 
-# Example Usage
-```js script
-const theSportsDB = require('thesportsdb');
-(async() => {
-    theSportsDB.setApiKey(808) //defaults to 1, set for Patreon
-    //works with space, underscores, or "%20"s
-    var goat = await theSportsDB.getPlayerByName("michael jordan")
-    var kobe = await theSportsDB.getPlayerByName("kobe_bryant") 
-    //replace unused parameters with null
-    var events = await theSportsDB.getEventsOnDay("2014-10-10", null, "Australian_A-League")
-    //ids can be either numbers or strings
-    var nextEvents = await theSportsDB.getNext5EventsByTeamId(133602)
-})()
+## Example Usage
+```js
+import theSportsDB from '@apteryxxyz/thesportsdb';
+
+theSportsDB.setApiKey(808); // defaults to 123, set for Patreon
+
+// works with spaces, underscores, or "%20"s
+const goat = await theSportsDB.getPlayerByName('michael jordan');
+const kobe = await theSportsDB.getPlayerByName('kobe_bryant');
+
+// replace unused parameters with null
+const events = await theSportsDB.getEventsOnDay('2014-10-10', null, 'Australian_A-League');
+
+// ids can be either numbers or strings
+const nextEvents = await theSportsDB.getNext5EventsByTeamId(133602);
 ```
