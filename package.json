@@ -1,6 +1,6 @@
 {
   "name": "@apteryxxyz/thesportsdb",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A JavaScript library for interfacing with theSportsDB API",
   "type": "module",
   "main": "index.js",

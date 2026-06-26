@@ -501,8 +501,13 @@ export interface Love {
     strChannelFanart: string | null;
 }
 
-declare const sportsdb: {
-    setApiKey(key: string | number): void;
+export interface SportsDBOptions {
+    apiKey?: string | number;
+    fetch?: typeof globalThis.fetch;
+}
+
+export declare class SportsDbApi {
+    constructor(options?: SportsDBOptions);
 
     // Teams
     getTeamByName(name: string): Promise<{ teams: Team[] | null }>;
@@ -561,6 +566,6 @@ declare const sportsdb: {
     getGolfLivescores(): Promise<{ matches: Livescore[] | null }>;
     getBasketballLivescores(): Promise<{ matches: Livescore[] | null }>;
     getAmericanFootballLivescores(): Promise<{ matches: Livescore[] | null }>;
-};
+}
 
-export default sportsdb;
+export default SportsDbApi;
